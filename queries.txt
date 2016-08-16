@@ -1,0 +1,65 @@
+SELECT R.RefNumber,R.ESN,R.MCN,R.GSPNTicketNo,R.DateIn,R.DateComplete,R.DateDockIn,R.DateDockOut,R.DateEstimation,
+R.DateApproved,R.DateReject,R.DateBackorder,R.Warranty,R.Program,R.DealerID,D.Name as DealerName,R.FuturetelLocation,R.SVP,R.ModelNumber,
+R.DelayReason,R.LastTechnician,R.DealerRefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging
+FROM EasyDB.dbo.tblRepair R
+LEFT JOIN EasyDB.dbo.tblDealer D
+ON R.DealerID = D.DealerID
+WHERE (R.Status != 'C' and R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+AND (R.FuturetelLocation != 'STOCK')
+AND R.Manufacturer = 'SAMSUNG'
+ORDER BY Aging Desc, R.RefNumber ASC
+
+--------------------dateIn
+SELECT R.RefNumber,R.ModelNumber,D.Name as DealerName,R.DealerID,R.DateIn,R.DateDockIn,R.Warranty
+FROM EasyDB.dbo.tblRepair R
+LEFT JOIN EasyDB.dbo.tblDealer D
+ON R.DealerID = D.DealerID
+WHERE (R.Status != 'C' and R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+AND (R.FuturetelLocation != 'STOCK')
+AND R.Manufacturer = 'SAMSUNG'
+AND (R.DateIn > (Format(GetDate(), N'yyyy-MM-dd')+' 08:00:00') and R.DateIn < GETDATE())
+ORDER BY R.DateIn Asc, R.RefNumber ASC
+
+----------------------dateOut
+SELECT R.RefNumber,R.ModelNumber,D.Name as DealerName,R.DealerID,R.DateIn,R.DateDockIn,R.DateComplete
+FROM ExcelDB.dbo.tblRepair R
+LEFT JOIN ExcelDB.dbo.tblDealer D
+ON R.DealerID = D.DealerID
+WHERE (R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+AND (R.FuturetelLocation != 'STOCK')
+AND R.Manufacturer = 'SAMSUNG'
+AND (R.DateComplete > (Format(GetDate(), N'yyyy-MM-dd')+' 07:00:00') and R.DateComplete < GETDATE())
+ORDER BY R.DateComplete Asc, R.RefNumber ASC
+
+----------------------------TAT
+SELECT DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as TATByDateIn,DATEDIFF(day, R.DateDockIn, convert(date, GETDATE())) as TATByDockIn,R.RefNumber,D.Name as DealerName,R.DateIn,R.DateDockIn,R.DateComplete
+                            FROM ExcelDB.dbo.tblRepair R
+                            LEFT JOIN ExcelDB.dbo.tblDealer D
+                            ON R.DealerID = D.DealerID
+                            WHERE (R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+                            AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+                            AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+                            AND (R.FuturetelLocation != 'STOCK')
+                            AND R.Manufacturer = 'SAMSUNG'
+                            AND (R.DateComplete > (Format(GetDate(), N'yyyy-MM-dd')+' 07:00:00') and R.DateComplete < GETDATE())
+                            AND R.DelayReason =''
+                            ORDER BY R.DateComplete Asc, R.RefNumber ASC
+
+--------------------------BackOrder
+SELECT R.RefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging,R.ModelNumber,R.DateIn,R.DateDockIn,
+                            R.DelayReason,R.FuturetelLocation,R.LastTechnician,R.Status
+                            FROM ExcelDB.dbo.tblRepair R
+                            LEFT JOIN ExcelDB.dbo.tblDealer D
+                            ON R.DealerID = D.DealerID
+                            WHERE (R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+                            AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+                            AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+                            AND (R.FuturetelLocation = 'B')
+                            AND R.Manufacturer = 'SAMSUNG'
+                            ORDER BY Aging Desc, R.RefNumber ASC
