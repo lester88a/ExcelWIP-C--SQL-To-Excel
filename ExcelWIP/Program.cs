@@ -24,13 +24,15 @@ namespace ExcelWIP
             try
             {
 
-                WIP wip = new WIP();
-                wip.SQLToExcel(FileName, ConnectionString, QueryWIP);
+                //WIP wip = new WIP();
+                //wip.SQLToExcel(FileName, ConnectionString, QueryWIP);
 
-                Task.Delay(1000);
+                //Task.Delay(1000);
 
-                PivotTableBulk pt = new PivotTableBulk();
-                pt.GetPiovtTableBulk(FileName);
+                //PivotTableBulk pt = new PivotTableBulk();
+                //pt.GetPiovtTableBulk(FileName);
+
+                ExcelSheet bk = new ExcelSheet();
 
             }
             catch (Exception e)

@@ -74,6 +74,15 @@ namespace ExcelWIP
                             AND (R.Program = 'BULK')
                             AND R.Manufacturer = 'SAMSUNG'
                             ORDER BY Aging ASC, R.RefNumber ASC";
+        private static string QueryRetail = @"SELECT R.RefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging,R.FuturetelLocation,R.Program
+                            FROM ExcelDB.dbo.tblRepair R
+                            WHERE (R.Status != 'S' and R.Status != 'M' and R.Status != 'X' and R.Status != 'C')
+                            AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+                            AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+                            AND (R.DealerID = 517)
+                            AND R.Manufacturer = 'SAMSUNG'
+                            ORDER BY Aging ASC, R.RefNumber ASC";
+
         //file name
         private static string FileName;
 
@@ -119,6 +128,10 @@ namespace ExcelWIP
         public string GetQueryBulk()
         {
             return QueryBulk;
+        }
+        public string GetQueryRetail()
+        {
+            return QueryRetail;
         }
     }
 }

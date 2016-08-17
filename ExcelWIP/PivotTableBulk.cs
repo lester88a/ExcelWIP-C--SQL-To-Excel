@@ -28,7 +28,7 @@ namespace ExcelWIP
             //create work sheet name
             workSheet = (Excel._Worksheet)excel.Worksheets.Add();
             workSheet.Name = "Bulk PiovtTable";
-
+            
 
             // specify first cell for pivot table
             Excel.Range oRange2 = workSheet.Cells[1, 1];
@@ -38,7 +38,7 @@ namespace ExcelWIP
             Excel.PivotCache pivotCache = workBook.PivotCaches().Create(Excel.XlPivotTableSourceType.xlDatabase, "Bulk!A1:D900");
 
             Excel.PivotTable pivotTable = pivotCache.CreatePivotTable(TableDestination: oRange2, TableName: "BulkSummary");
-
+            
             #region
             //Set up the Program field as the page field, and Aging as the row field
             Excel.PivotField pageField = (Excel.PivotField)pivotTable.PivotFields("Program");
