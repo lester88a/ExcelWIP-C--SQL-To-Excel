@@ -10,42 +10,20 @@ namespace ExcelWIP
 {
     class Program
     {
-        private static string FileName;
-        private static string ConnectionString;
-        private static string QueryWIP;
-        /*------------------------------------------------------------------------------------------------*/
         static void Main(string[] args)
         {
-            Connection co = new Connection();
-            FileName = co.GetFileName();
-            ConnectionString = co.GetConnectionString();
-            QueryWIP = co.GetQueryWIP();
-            
             try
             {
-
-                //WIP wip = new WIP();
-                //wip.SQLToExcel(FileName, ConnectionString, QueryWIP);
-
-                //Task.Delay(1000);
-
-                //PivotTableBulk pt = new PivotTableBulk();
-                //pt.GetPiovtTableBulk(FileName);
-
-                ExcelSheet bk = new ExcelSheet();
-
+                //Creat new excel sheet object
+                ExcelSheet excelSheet = new ExcelSheet();
             }
             catch (Exception e)
             {
-
+                //display error info
                 Console.WriteLine("Error: \n"+e);
             }
-
-            
-
+            //press any key to continue
             Console.ReadKey();
         }
-
-       
     }
 }
