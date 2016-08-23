@@ -11,6 +11,37 @@ namespace ExcelWIP
         //connection string
         private static string ConnectionString = "Data Source=ESDB-TST;Initial Catalog=ExcelDB;Integrated Security=True";
         //instance variable - query
+        private static string QueryAll = @"SELECT R.RefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as TATByDateIn,DATEDIFF(day, R.DateDockIn, convert(date, GETDATE())) as TATByDockIn,D.Name as DealerName,R.DealerID,R.GSPNTicketNo,R.DateIn,R.DateComplete,R.DateDockIn,R.DateDockOut,R.DateEstimation,
+                            R.DateApproved,R.DateReject,R.DateBackorder,R.Warranty,R.Program,R.FuturetelLocation,R.ESN,R.MCN,R.SVP,R.ModelNumber,
+                            R.DelayReason, CONCAT(U.FirstName,' ',U.LastName) as Technician,R.DealerRefNumber,R.Manufacturer,R.Status, R.DateFinish
+                            FROM ExcelDB.dbo.tblRepair R
+                            LEFT JOIN ExcelDB.dbo.tblDealer D
+                            ON R.DealerID = D.DealerID
+							LEFT JOIN ExcelDB.dbo.tblUser U
+                            ON R.LastTechnician = U.UserName
+                            WHERE (R.Status != 'C' and R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+                            AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+                            AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+                            AND (R.FuturetelLocation != 'STOCK')
+                            AND R.Manufacturer = 'SAMSUNG'
+							union
+							SELECT R.RefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as TATByDateIn,DATEDIFF(day, R.DateDockIn, convert(date, GETDATE())) as TATByDockIn,D.Name as DealerName,R.DealerID,R.GSPNTicketNo,R.DateIn,R.DateComplete,R.DateDockIn,R.DateDockOut,R.DateEstimation,
+                            R.DateApproved,R.DateReject,R.DateBackorder,R.Warranty,R.Program,R.FuturetelLocation,R.ESN,R.MCN,R.SVP,R.ModelNumber,
+                            R.DelayReason, CONCAT(U.FirstName,' ',U.LastName) as Technician,R.DealerRefNumber,R.Manufacturer,R.Status, R.DateFinish
+                            FROM ExcelDB.dbo.tblRepair R
+                            LEFT JOIN ExcelDB.dbo.tblDealer D
+                            ON R.DealerID = D.DealerID
+							LEFT JOIN ExcelDB.dbo.tblUser U
+                            ON R.LastTechnician = U.UserName
+                            WHERE (R.Status != 'S' and R.Status != 'M' and R.Status != 'X')
+                            AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+                            AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+                            AND (R.FuturetelLocation != 'STOCK')
+                            AND R.Manufacturer = 'SAMSUNG'
+							AND (R.DateIn > (Format(GetDate(), N'yyyy-MM-dd')+' 08:00:00')
+							or R.DateComplete > (Format(GetDate(), N'yyyy-MM-dd')+' 07:00:00'))
+                            ORDER BY Aging ASC, R.RefNumber ASC";
+
         private static string QueryWIP = @"SELECT R.RefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging,D.Name as DealerName,R.DealerID,R.GSPNTicketNo,R.DateIn,R.DateComplete,R.DateDockIn,R.DateDockOut,R.DateEstimation,
                             R.DateApproved,R.DateReject,R.DateBackorder,R.Warranty,R.Program,R.FuturetelLocation,R.ESN,R.MCN,R.SVP,R.ModelNumber,
                             R.DelayReason,R.LastTechnician,R.DealerRefNumber
@@ -82,6 +113,14 @@ namespace ExcelWIP
                             AND (R.DealerID = 517)
                             AND R.Manufacturer = 'SAMSUNG'
                             ORDER BY Aging ASC, R.RefNumber ASC";
+        private static string QueryRogers = @"SELECT R.RefNumber,DATEDIFF(day, R.DateIn, convert(date, GETDATE())) as Aging,R.FuturetelLocation,R.Program
+                            FROM ExcelDB.dbo.tblRepair R
+                            WHERE (R.Status != 'S' and R.Status != 'M' and R.Status != 'X' and R.Status != 'C')
+                            AND (R.DealerID!= 7430 and R.DealerID!= 7432 and R.DealerID!= 7481 and R.DealerID!= 7482 and R.DealerID!= 7498 and R.DealerID!= 7550 and R.DealerID!= 7551 and R.DealerID!= 7552 and R.DealerID!= 7595)
+                            AND (R.SVP != 'TCHURN' and R.SVP != 'TCC' and R.SVP != 'KCC' and R.SVP != 'TXREPAIR' and R.SVP != 'KXREPAIR' and R.SVP != 'KCHURN' and R.SVP != 'TEXPRESS' and R.SVP != 'KEXPRESS')
+                            AND (R.DealerID = '517') and (R.SVP = 'ROGERS' or R.SVP = 'FIDO')
+                            AND R.Manufacturer = 'SAMSUNG'
+                            ORDER BY Aging ASC, R.RefNumber ASC";
 
         //file name
         private static string FileName;
@@ -91,9 +130,9 @@ namespace ExcelWIP
         {
             //current location
             string currentLocation = System.AppDomain.CurrentDomain.BaseDirectory;
-            string currentDate = DateTime.Now.ToString("MMMdd HH.mm");
+            string currentDate = DateTime.Now.ToString("yyyyMMdd-HHmm");
             //file name
-            FileName = @"C:\Users\lester.xu\Desktop\New folder\Samsung All " + currentDate + ".xlsx";
+            FileName = @"C:\Users\lester.xu\Desktop\Excel\SamWIP-" + currentDate + ".xlsx";
         }
 
         //method
@@ -104,6 +143,10 @@ namespace ExcelWIP
         public string GetConnectionString()
         {
             return ConnectionString;
+        }
+        public string GetQueryAll()
+        {
+            return QueryAll;
         }
         public string GetQueryWIP()
         {
@@ -132,6 +175,10 @@ namespace ExcelWIP
         public string GetQueryRetail()
         {
             return QueryRetail;
+        }
+        public string GetQueryRogers()
+        {
+            return QueryRogers;
         }
     }
 }

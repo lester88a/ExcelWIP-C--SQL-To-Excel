@@ -11,8 +11,9 @@ namespace ExcelWIP
     public class ExcelSheet:DataTable
     {
         //constructor
-        public ExcelSheet()
+        public ExcelSheet(ref string fileName)
         {
+           
             //begin monitoring for execution time
             var watch = System.Diagnostics.Stopwatch.StartNew();
             //get connection string
@@ -25,6 +26,7 @@ namespace ExcelWIP
             string queryBackOrder = con.GetQueryBackOrder();
             string queryBulk = con.GetQueryBulk();
             string queryRetail = con.GetQueryRetail();
+            string queryRogers = con.GetQueryRogers();
             //set worksheet name
             string sheetWIP = "WIP";
             string sheetIn = "In";
@@ -33,18 +35,24 @@ namespace ExcelWIP
             string sheetBackOrder = "BackOrder";
             string sheetBulk = "Bulk";
             string sheetRetail = "Retail";
+            string sheetRogers = "Rogers";
 
             //create excel sheet
-            CreateExcel();
+            fileName = "";
+           
+            CreateExcel(ref fileName);
+            Console.WriteLine("File Name: " + fileName);
+
 
             //create sheet sheet by name
+            CreatSheet(queryRogers, sheetRogers);
             CreatSheet(queryRetail, sheetRetail);
             CreatSheet(queryBulk, sheetBulk);
-            CreatSheet(queryBackOrder, sheetBackOrder);
+            //CreatSheet(queryBackOrder, sheetBackOrder);
             CreatSheet(queryTAT, sheetTAT);
             CreatSheet(queryOut, sheetOut);
             CreatSheet(queryIn, sheetIn);
-            CreatSheet(queryWIP, sheetWIP);
+            //CreatSheet(queryWIP, sheetWIP);
 
             //save excel sheet
             SaveExcel();
@@ -56,9 +64,9 @@ namespace ExcelWIP
             Console.WriteLine("Execution time: "+ elapsedMs/1000 + " seconds");
         }
 
-        public override void CreateExcel()
+        public override void CreateExcel(ref string fileName)
         {
-            base.CreateExcel();
+            base.CreateExcel(ref fileName);
         }
 
         public override void CreatSheet(string query, string sheetName)

@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,9 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastMember, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.0.0.11\lib\net40\FastMember.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -50,23 +58,53 @@
   <ItemGroup>
     <Compile Include="Backup\BackOrder.cs" />
     <Compile Include="Backup\Bulk.cs" />
-    <Compile Include="ExcelSheet.cs" />
+    <Compile Include="VersionTwo\Controllers\BackOrderController.cs" />
+    <Compile Include="VersionTwo\Controllers\BulkController.cs" />
+    <Compile Include="VersionTwo\Controllers\DataController.cs" />
+    <Compile Include="VersionTwo\Controllers\NonRogersController.cs" />
+    <Compile Include="VersionTwo\Controllers\PriorityController.cs" />
+    <Compile Include="VersionTwo\Controllers\RetailController.cs" />
+    <Compile Include="VersionTwo\Controllers\RogersController.cs" />
+    <Compile Include="VersionTwo\Controllers\TATController.cs" />
+    <Compile Include="VersionTwo\Controllers\DateOutController.cs" />
+    <Compile Include="VersionTwo\Controllers\DateInController.cs" />
+    <Compile Include="VersionOne\ExcelSheet.cs" />
     <Compile Include="Connection.cs" />
-    <Compile Include="DataTable.cs" />
+    <Compile Include="VersionOne\DataTable.cs" />
     <Compile Include="Backup\DateIn.cs" />
     <Compile Include="Backup\DateOut.cs" />
-    <Compile Include="PivotTableBulk.cs" />
+    <Compile Include="VersionTwo\Controllers\TechnicianController.cs" />
+    <Compile Include="VersionTwo\Controllers\WIPController.cs" />
+    <Compile Include="VersionTwo\DataTableManager.cs" />
+    <Compile Include="VersionTwo\EmailService\EmailService.cs" />
+    <Compile Include="VersionTwo\ExcelManager.cs" />
+    <Compile Include="VersionTwo\Models\BackOrderModel.cs" />
+    <Compile Include="VersionTwo\Models\BulkModel.cs" />
+    <Compile Include="VersionTwo\Models\NonRogersModel.cs" />
+    <Compile Include="VersionTwo\Models\PriorityModel.cs" />
+    <Compile Include="VersionTwo\Models\Repair.cs" />
+    <Compile Include="VersionTwo\Models\RetailModel.cs" />
+    <Compile Include="VersionTwo\Models\RogersModel.cs" />
+    <Compile Include="VersionTwo\Models\TATModel.cs" />
+    <Compile Include="VersionTwo\Models\DateOutModel.cs" />
+    <Compile Include="VersionTwo\Models\DateInModel.cs" />
+    <Compile Include="VersionOne\PivotTable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backup\Retail.cs" />
     <Compile Include="Backup\SQLToCSV.cs" />
     <Compile Include="Backup\TAT.cs" />
     <Compile Include="Backup\WIP.cs" />
+    <Compile Include="VersionTwo\Models\TechModel.cs" />
+    <Compile Include="VersionTwo\Models\WIPModel.cs" />
+    <Compile Include="VersionTwo\PivotTable\PiovtTableForPriority.cs" />
+    <Compile Include="VersionTwo\PivotTable\PivotTableForNormal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,20 +10,20 @@ namespace ExcelWIP
     public class DataTable
     {
         //public & private instance variables
-        private string FileName { get; set; }
+        public string FileName { get; set; }
         private string _ConnectionString { get; set; }
         private Excel.Application _Excel { get; set; }
         private Excel._Workbook _WorkBook { get; set; }
         private Excel._Worksheet WorkSheet { get; set; }
         private SQL.DataTable dataTable { get; set; }
 
-        public virtual void CreateExcel()
+        public virtual void CreateExcel(ref string fileName)
         {
             //get connection
             Connection con = new Connection();
             this.FileName = con.GetFileName();
             _ConnectionString = con.GetConnectionString();
-            
+            fileName = this.FileName;
             /*-------------------------*/
             //Create Excel objects
             #region Create Excel objects
