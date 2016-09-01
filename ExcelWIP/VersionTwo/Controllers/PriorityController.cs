@@ -35,7 +35,8 @@ namespace ExcelWIP.VersionTwo.Controllers
                     RefNumber = item.RefNumber,
                     Aging = item.Aging,
                     FuturetelLocation = item.FuturetelLocation,
-                    Program = item.Program
+                    Program = item.Program,
+                    Warranty = item.Warranty
                 });
             }
 
@@ -50,6 +51,7 @@ namespace ExcelWIP.VersionTwo.Controllers
             PriorityDataTable.Columns["Aging"].SetOrdinal(1);
             PriorityDataTable.Columns["FuturetelLocation"].SetOrdinal(2);
             PriorityDataTable.Columns["Program"].SetOrdinal(3);
+            PriorityDataTable.Columns["Warranty"].SetOrdinal(4);
 
             return PriorityDataTable;
         }

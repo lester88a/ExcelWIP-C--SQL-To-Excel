@@ -76,7 +76,7 @@ namespace ExcelWIP.VersionTwo
             TechDataTable = dtTechnicianController.GetTechDataTable(AllRepairData);
         }
 
-        public void GetExcelSheet(ref string fileName)
+        public void GetExcelSheet(ref string fileName, ref SQL.DataTable techDataTable)
         {
             //set work sheet name
             #region Local variables for sheet name
@@ -97,6 +97,7 @@ namespace ExcelWIP.VersionTwo
             #region Create Excel
             fileName = "";
             CreateExcel(ref fileName);
+            techDataTable = TechDataTable;
             Console.WriteLine("File Name: " + fileName);
             #endregion
 

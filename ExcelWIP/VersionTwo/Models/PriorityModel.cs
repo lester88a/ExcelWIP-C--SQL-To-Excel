@@ -12,5 +12,6 @@ namespace ExcelWIP.VersionTwo.Models
         public int Aging { get; set; }
         public string FuturetelLocation { get; set; }
         public string Program { get; set; }
+        public bool Warranty { get; set; }
     }
 }

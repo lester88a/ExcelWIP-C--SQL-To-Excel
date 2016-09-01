@@ -132,7 +132,7 @@ namespace ExcelWIP
             string currentLocation = System.AppDomain.CurrentDomain.BaseDirectory;
             string currentDate = DateTime.Now.ToString("yyyyMMdd-HHmm");
             //file name
-            FileName = @"C:\Users\lester.xu\Desktop\Excel\SamWIP-" + currentDate + ".xlsx";
+            FileName = @"\\server\shop\User Data\Lester Xu\Excel\SamWIP-" + currentDate + ".xlsx";
         }
 
         //method

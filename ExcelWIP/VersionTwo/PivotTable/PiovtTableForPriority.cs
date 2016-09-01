@@ -40,19 +40,17 @@ namespace ExcelWIP.VersionTwo.PivotTable
             //Set up the Program field as the page field, and Aging as the row field
             Excel.PivotField pageField = (Excel.PivotField)pivotTable.PivotFields("Program");
             pageField.Orientation = Excel.XlPivotFieldOrientation.xlPageField;
+            
             //set up Aging field as row field
             Excel.PivotField rowField = (Excel.PivotField)pivotTable.PivotFields("FuturetelLocation");
             rowField.Orientation = Excel.XlPivotFieldOrientation.xlRowField;
-            //rowField.Position = 1;
-            //Excel.PivotField rowField2 = (Excel.PivotField)pivotTable.PivotFields("RefNumber");
-            //rowField2.Orientation = Excel.XlPivotFieldOrientation.xlRowField;
-            //rowField2.Position = 2;
-
+            
             //set up FuturetelLocation field as column field
             Excel.PivotField columnField = (Excel.PivotField)pivotTable.PivotFields("Aging");
             columnField.Orientation = Excel.XlPivotFieldOrientation.xlColumnField;
 
             pivotTable.AddDataField(pivotTable.PivotFields("RefNumber"), "Count of RefNumber", Excel.XlConsolidationFunction.xlCount);
+            
             #endregion
 
             /*-------------------------*/
