@@ -4,6 +4,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace ExcelWIP.VersionTwo
 {
@@ -28,7 +29,8 @@ namespace ExcelWIP.VersionTwo
 
             _Excel = new Excel.Application();
             //hide excel windwow when generating
-            _Excel.Visible = false; 
+            _Excel.Visible = false;
+            _Excel.DisplayAlerts = false;
 
             _WorkBook = _Excel.Workbooks.Add(Missing.Value);
 
@@ -153,14 +155,20 @@ namespace ExcelWIP.VersionTwo
             /*-------------------------*/
             //Save Data Excel sheet
             #region Save Data to Excel sheet
-            _Excel.Visible = true;
+            _Excel.Visible = false;
             _Excel.DisplayAlerts = false;
 
             //save without prompt
             _Excel.UserControl = true;
             _WorkBook.SaveAs(this.FileName, AccessMode: Excel.XlSaveAsAccessMode.xlExclusive);
+            // Cleanup
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Marshal.ReleaseComObject(WorkSheet);
             _WorkBook.Close();
+            Marshal.ReleaseComObject(_WorkBook);
             _Excel.Quit();
+            Marshal.ReleaseComObject(_Excel);
             Console.WriteLine("Success saved Excel to:" + FileName);
             #endregion
         }

@@ -46,7 +46,8 @@ namespace ExcelWIP.Controllers
                     DealerID = item.DealerID,
                     DateIn = item.DateIn,
                     DateDockIn = item.DateDockIn,
-                    DateComplete = item.DateComplete
+                    DateComplete = item.DateComplete,
+                    FTRMA = item.FTRMA
                 });
             }
 
@@ -60,10 +61,11 @@ namespace ExcelWIP.Controllers
             DateInDataTable.Columns["RefNumber"].SetOrdinal(0);
             DateInDataTable.Columns["ModelNumber"].SetOrdinal(1);
             DateInDataTable.Columns["DealerName"].SetOrdinal(2);
-            DateInDataTable.Columns["DealerID"].SetOrdinal(3);
+            DateInDataTable.Columns["FTRMA"].SetOrdinal(3);
             DateInDataTable.Columns["DateIn"].SetOrdinal(4);
             DateInDataTable.Columns["DateDockIn"].SetOrdinal(5);
-            DateInDataTable.Columns["DateComplete"].SetOrdinal(6);
+            DateInDataTable.Columns["DealerID"].SetOrdinal(6);
+            DateInDataTable.Columns["DateComplete"].SetOrdinal(7);
 
             return DateInDataTable;
         }

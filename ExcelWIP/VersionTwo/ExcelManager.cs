@@ -80,17 +80,16 @@ namespace ExcelWIP.VersionTwo
         {
             //set work sheet name
             #region Local variables for sheet name
-            string sheetWIP = "WIP";
+            string sheetWIP = "All";
             string sheetDateIn = "In";
             string sheetDateOut = "Out";
             string sheetTAT = "TAT";
             string sheetBackOrder = "BackOrder";
-            string sheetBulk = "Bulk";
-            string sheetRetail = "Retail";
-            string sheetRogers = "Rogers";
-            string sheetNonRogers = "NonRogers";
-            string sheetProrityList = "ProrityList";
-            string sheetTechOutput = "TechOutput";
+            string sheetBulk = "_Bulk";
+            string sheetRetail = "_Retail";
+            string sheetRogers = "_RogersDealer";
+            string sheetNonRogers = "_NonRogersDealer";
+            string sheetProrityList = "_PriorityList";
             #endregion
 
             //create excel woork
@@ -104,16 +103,15 @@ namespace ExcelWIP.VersionTwo
             //add work sheet by name
             #region Create WoorkSheet
             //call CreatSheet
-            CreatSheet(TechDataTable, sheetTechOutput);
-            CreatSheet(PriorityDataTable, sheetProrityList);
             CreatSheet(NonRogersDataTable, sheetNonRogers);
             CreatSheet(RogersDataTable, sheetRogers);
             CreatSheet(RetailDataTable, sheetRetail);
             CreatSheet(BulkDataTable, sheetBulk);
-            CreatSheet(BackOrderDataTable, sheetBackOrder);
+            CreatSheet(PriorityDataTable, sheetProrityList);
             CreatSheet(TATDataTable, sheetTAT);
             CreatSheet(DateOutDataTable, sheetDateOut);
             CreatSheet(DateInDataTable, sheetDateIn);
+            CreatSheet(BackOrderDataTable, sheetBackOrder);
             CreatSheet(WIPDataTable, sheetWIP);
 
             #endregion

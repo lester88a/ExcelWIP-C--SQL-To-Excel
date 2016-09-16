@@ -62,7 +62,7 @@ namespace ExcelWIP.Controllers
                 int count;
                 using (SqlConnection thisConnection = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmdCount = new SqlCommand("select case when exists((select * from ExcelDB.information_schema.tables where table_name = 'tblRepair')) then 1 else 0 end", thisConnection))
+                    using (SqlCommand cmdCount = new SqlCommand("select case when exists((select * from reportdb.information_schema.tables where table_name = 'tblReportWIP')) then 1 else 0 end", thisConnection))
                     {
                         thisConnection.Open();
                         cmdCount.CommandTimeout = 0;

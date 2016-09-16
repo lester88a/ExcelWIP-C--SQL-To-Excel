@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ExcelWIP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SamExcelWIP")]
+[assembly: AssemblyDescription("This application is used for generating Excel file")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ExcelWIP")]
+[assembly: AssemblyProduct("SamExcelWIP")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

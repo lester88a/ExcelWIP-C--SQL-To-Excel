@@ -36,5 +36,9 @@ namespace ExcelWIP.VersionTwo.Models
         public string DealerRefNumber { get; set; }
         public string Status { get; set; }
         public string Manufacturer { get; set; }
+        public string FTRMA { get; set; }
+        public string ShipWayBill { get; set; }
+        public string Type { get; set; }
+        public string ToFactoryWayBill { get; set; }
     }
 }

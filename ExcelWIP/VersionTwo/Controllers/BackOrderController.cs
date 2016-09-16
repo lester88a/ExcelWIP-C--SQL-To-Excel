@@ -37,9 +37,12 @@ namespace ExcelWIP.VersionTwo.Controllers
                     RefNumber = item.RefNumber,
                     Aging = item.Aging,
                     ModelNumber = item.ModelNumber,
+                    DealerName = item.DealerName,
+                    FTRMA = item.FTRMA,
                     DateIn = item.DateIn,
                     DateDockIn = item.DateDockIn,
                     DelayReason = item.DelayReason,
+                    FuturetelLocation = item.FuturetelLocation,
                     Technician = item.Technician,
                     Status = item.Status
                 });
@@ -55,11 +58,14 @@ namespace ExcelWIP.VersionTwo.Controllers
             BackOrderDataTable.Columns["RefNumber"].SetOrdinal(0);
             BackOrderDataTable.Columns["Aging"].SetOrdinal(1);
             BackOrderDataTable.Columns["ModelNumber"].SetOrdinal(2);
-            BackOrderDataTable.Columns["DateIn"].SetOrdinal(3);
-            BackOrderDataTable.Columns["DateDockIn"].SetOrdinal(4);
-            BackOrderDataTable.Columns["DelayReason"].SetOrdinal(5);
-            BackOrderDataTable.Columns["Technician"].SetOrdinal(6);
-            BackOrderDataTable.Columns["Status"].SetOrdinal(5);
+            BackOrderDataTable.Columns["DealerName"].SetOrdinal(3);
+            BackOrderDataTable.Columns["FTRMA"].SetOrdinal(4);
+            BackOrderDataTable.Columns["DateIn"].SetOrdinal(5);
+            BackOrderDataTable.Columns["DateDockIn"].SetOrdinal(6);
+            BackOrderDataTable.Columns["DelayReason"].SetOrdinal(7);
+            BackOrderDataTable.Columns["FuturetelLocation"].SetOrdinal(8);
+            BackOrderDataTable.Columns["Technician"].SetOrdinal(9);
+            BackOrderDataTable.Columns["Status"].SetOrdinal(10);
 
             return BackOrderDataTable;
         }

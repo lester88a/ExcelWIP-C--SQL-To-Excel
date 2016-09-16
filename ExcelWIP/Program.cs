@@ -42,22 +42,22 @@ namespace ExcelWIP
                 #region version two
                 string fileName = null;
                 SQL.DataTable techDataTable = null;
-                string sheetBulk = "Bulk";
-                string sheetRetail = "Retail";
-                string sheetRogers = "Rogers";
-                string sheetNonRogers = "NonRogers";
-                string sheetProrityList = "ProrityList";
+                string sheetBulk = "_Bulk";
+                string sheetRetail = "_Retail";
+                string sheetRogers = "_RogersDealer";
+                string sheetNonRogers = "_NonRogersDealer";
+                string sheetProrityList = "_PriorityList";
 
                 ExcelManager ex = new ExcelManager();
                 ex.GetExcelSheet(ref fileName, ref techDataTable);
 
                 //create pivot tables
                 PivotTableForNormal pt = new PivotTableForNormal();
-                pt.CreatePiovtTable(fileName, sheetBulk);
-                pt.CreatePiovtTable(fileName, sheetRetail);
-                pt.CreatePiovtTable(fileName, sheetRogers);
                 pt.CreatePiovtTable(fileName, sheetNonRogers);
-
+                pt.CreatePiovtTable(fileName, sheetRogers);
+                pt.CreatePiovtTable(fileName, sheetRetail);
+                pt.CreatePiovtTable(fileName, sheetBulk);
+                
                 PiovtTableForPriority ptPriority = new PiovtTableForPriority();
                 ptPriority.CreatePiovtTable(fileName, sheetProrityList);
 
@@ -69,7 +69,7 @@ namespace ExcelWIP
                 string tString = techString.ConvertDataTableToString(techDataTable);
 
                 EmailService es = new EmailService();
-                es.SendEmailMethod(fileName, fileName.Remove(0, 40) + "- AutoEmail", "*** This is an automatically generated email, please do not reply ***\n\n"+ tString);
+                es.SendEmailMethod(fileName, fileName.Remove(0, 52).Remove(fileName.Remove(0, 52).Length - 5), "*** This is an automatically generated email, please do not reply ***\n\n" + tString);
                 Console.WriteLine("Email Send Success");
                 #endregion
 
@@ -86,7 +86,8 @@ namespace ExcelWIP
                 //display error info
                 Console.WriteLine("Error: \n" + e);
             }
-            //delay 3 seconds for user to read detailed info
+            Console.WriteLine("Application will exit within 5 seconds.");
+            //delay 5 seconds for user to read detailed info
             Thread.Sleep(5000);
 
 

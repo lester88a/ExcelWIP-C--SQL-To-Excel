@@ -39,7 +39,8 @@ namespace ExcelWIP.Controllers
                     DateIn = item.DateIn,
                     DateDockIn = item.DateDockIn,
                     DealerID = item.DealerID,
-                    Warranty = item.Warranty
+                    Warranty = item.Warranty,
+                    FTRMA = item.FTRMA
                 });
             }
 
@@ -53,10 +54,11 @@ namespace ExcelWIP.Controllers
             DateInDataTable.Columns["RefNumber"].SetOrdinal(0);
             DateInDataTable.Columns["ModelNumber"].SetOrdinal(1);
             DateInDataTable.Columns["DealerName"].SetOrdinal(2);
-            DateInDataTable.Columns["DateIn"].SetOrdinal(3);
-            DateInDataTable.Columns["DateDockIn"].SetOrdinal(4);
-            DateInDataTable.Columns["DealerID"].SetOrdinal(5);
-            DateInDataTable.Columns["Warranty"].SetOrdinal(6);
+            DateInDataTable.Columns["FTRMA"].SetOrdinal(3);
+            DateInDataTable.Columns["DateIn"].SetOrdinal(4);
+            DateInDataTable.Columns["DateDockIn"].SetOrdinal(5);
+            DateInDataTable.Columns["DealerID"].SetOrdinal(6);
+            DateInDataTable.Columns["Warranty"].SetOrdinal(7);
 
             return DateInDataTable;
         }

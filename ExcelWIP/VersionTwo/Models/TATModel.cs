@@ -10,10 +10,11 @@ namespace ExcelWIP.Models
     {
         public string TATByDateIn { get; set; }
         public string TATByDockIn { get; set; }
-        public int RefNumber { get; set; }
         public string DealerName { get; set; }
-        public DateTime? DateIn { get; set; }
         public DateTime? DateDockIn { get; set; }
         public DateTime? DateComplete { get; set; }
+        public DateTime? DateIn { get; set; }
+        public int RefNumber { get; set; }
+        public string DelayReason { get; set; }
     }
 }

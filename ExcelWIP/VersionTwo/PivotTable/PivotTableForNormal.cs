@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ExcelWIP.VersionTwo.PivotTable
@@ -15,6 +16,7 @@ namespace ExcelWIP.VersionTwo.PivotTable
             Excel._Worksheet workSheet;
 
             excel.Visible = false;
+            excel.DisplayAlerts = false;
 
             workBook = excel.Workbooks.Open(fileName);
             workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
@@ -22,7 +24,7 @@ namespace ExcelWIP.VersionTwo.PivotTable
             /*-------------------------*/
             //create work sheet name
             workSheet = (Excel._Worksheet)excel.Worksheets.Add();
-            workSheet.Name = sheetName + " PiovtTable";
+            workSheet.Name = sheetName.Remove(0,1);
 
 
             // specify first cell for pivot table
@@ -30,7 +32,7 @@ namespace ExcelWIP.VersionTwo.PivotTable
 
 
             // create Pivot Cache and Pivot Table
-            Excel.PivotCache pivotCache = workBook.PivotCaches().Create(Excel.XlPivotTableSourceType.xlDatabase, sheetName + "!A1:D900");
+            Excel.PivotCache pivotCache = workBook.PivotCaches().Create(Excel.XlPivotTableSourceType.xlDatabase, sheetName + "!A1:D5000");
 
             Excel.PivotTable pivotTable = pivotCache.CreatePivotTable(TableDestination: oRange2, TableName: sheetName + "Summary");
 
@@ -52,10 +54,25 @@ namespace ExcelWIP.VersionTwo.PivotTable
 
             /*-------------------------*/
             //save and exit excel work book
+            excel.Visible = false;
+            excel.DisplayAlerts = false;
+
+            //hide the row data sheet
+            Excel.Worksheet worksheet = (Excel.Worksheet)workBook.Worksheets[sheetName];
+            worksheet.Visible = Excel.XlSheetVisibility.xlSheetHidden;
+            Console.WriteLine("workSheet [" + sheetName + "] hided.");
+            //save
             workBook.Save();
+
+            // Cleanup
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Marshal.ReleaseComObject(workSheet);
             workBook.Close();
+            Marshal.ReleaseComObject(workBook);
             excel.Quit();
-            Console.WriteLine("Pivot table [" + sheetName + " PiovtTable] successfuly saved!");
+            Marshal.ReleaseComObject(excel);
+            Console.WriteLine("Pivot table [" + sheetName + " ] successfuly saved!");
 
         }
     }

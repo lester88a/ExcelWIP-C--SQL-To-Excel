@@ -43,7 +43,8 @@ namespace ExcelWIP.Controllers
                     DealerName = item.DealerName,
                     DateIn = item.DateIn,
                     DateDockIn = item.DateDockIn,
-                    DateComplete = item.DateComplete
+                    DateComplete = item.DateComplete,
+                    DelayReason = item.DelayReason
                 });
             }
 
@@ -56,11 +57,12 @@ namespace ExcelWIP.Controllers
             //order the datatable's columns
             TATDataTable.Columns["TATByDateIn"].SetOrdinal(0);
             TATDataTable.Columns["TATByDockIn"].SetOrdinal(1);
-            TATDataTable.Columns["RefNumber"].SetOrdinal(2);
-            TATDataTable.Columns["DealerName"].SetOrdinal(3);
-            TATDataTable.Columns["DateIn"].SetOrdinal(4);
-            TATDataTable.Columns["DateDockIn"].SetOrdinal(5);
-            TATDataTable.Columns["DateComplete"].SetOrdinal(6);
+            TATDataTable.Columns["DealerName"].SetOrdinal(2);
+            TATDataTable.Columns["DateDockIn"].SetOrdinal(3);
+            TATDataTable.Columns["DateComplete"].SetOrdinal(4);
+            TATDataTable.Columns["DateIn"].SetOrdinal(5);
+            TATDataTable.Columns["RefNumber"].SetOrdinal(6);
+            TATDataTable.Columns["DelayReason"].SetOrdinal(7);
 
             return TATDataTable;
         }
